@@ -21,7 +21,9 @@ import java.util.List;
 
 public class WebServer {
     private static final Gson gson = new Gson();
+    @SuppressWarnings("unused")
     private final AccountService accountService = new AccountServiceImpl();
+    @SuppressWarnings("unused")
     private final TransactionService txService = new TransactionServiceImpl();
 
     public void start(int port) throws Exception {

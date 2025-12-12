@@ -16,6 +16,7 @@ import java.util.List;
 
 public class TransactionServiceImpl implements TransactionService {
 
+    @SuppressWarnings("unused")
     private final AccountDao accountDao = new AccountDaoImpl();
     private final TransactionDao transactionDao = new TransactionDaoImpl();
 
