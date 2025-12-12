@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Finance Manager</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Finance Manager</h1>
+
+    <section class="card">
+      <h2>Create Account</h2>
+      <form id="createForm">
+        <input name="holderName" placeholder="Full name" required/>
+        <input name="email" placeholder="Email"/>
+        <input name="phone" placeholder="Phone"/>
+        <button type="submit">Create</button>
+      </form>
+      <div id="createResult" class="result"></div>
+    </section>
+
+    <section class="card">
+      <h2>Operations</h2>
+      <input id="accInput" placeholder="Account number (e.g. ACC...)" />
+      <div class="ops">
+        <div>
+          <h3>Deposit</h3>
+          <input id="depAmount" placeholder="Amount"/>
+          <input id="depDesc" placeholder="Description"/>
+          <button id="depBtn">Deposit</button>
+        </div>
+        <div>
+          <h3>Withdraw</h3>
+          <input id="wdAmount" placeholder="Amount"/>
+          <input id="wdDesc" placeholder="Description"/>
+          <button id="wdBtn">Withdraw</button>
+        </div>
+      </div>
+      <div id="opResult" class="result"></div>
+    </section>
+
+    <section class="card">
+      <h2>Balance & History</h2>
+      <input id="histAcc" placeholder="Account number"/>
+      <button id="getBal">Get Balance</button>
+      <button id="getHist">Get History</button>
+      <div id="balance" class="result"></div>
+      <div id="history" class="result"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
