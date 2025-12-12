@@ -42,6 +42,14 @@ public class WebServer {
         context.addServlet(WithdrawServlet.class, "/api/withdraw");
         context.addServlet(HistoryServlet.class, "/api/history");
         context.addServlet(BalanceServlet.class, "/api/balance");
+        context.addServlet(TopExpensesServlet.class, "/api/top-expenses");
+        context.addServlet(TopCategoriesServlet.class, "/api/top-categories");
+        context.addServlet(MonthlyAverageServlet.class, "/api/monthly-average");
+        context.addServlet(BudgetAnalysisServlet.class, "/api/budget-analysis");
+        context.addServlet(UndoServlet.class, "/api/undo");
+        context.addServlet(FraudDetectionServlet.class, "/api/fraud");
+        context.addServlet(CategorySuggestionsServlet.class, "/api/suggestions");
+        context.addServlet(AllTransactionsServlet.class, "/api/all-transactions");
 
         server.setHandler(context);
 
@@ -137,6 +145,99 @@ public class WebServer {
             }
             resp.setContentType("application/json");
             resp.getWriter().write(gson.toJson(a));
+        }
+    }
+
+    public static class TopExpensesServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            int k = Integer.parseInt(req.getParameter("k") != null ? req.getParameter("k") : "5");
+            List<Object[]> list = txService.getTopExpenses(k);
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(list));
+        }
+    }
+
+    public static class TopCategoriesServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            int k = Integer.parseInt(req.getParameter("k") != null ? req.getParameter("k") : "3");
+            List<Object[]> list = txService.getTopCategories(k);
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(list));
+        }
+    }
+
+    public static class MonthlyAverageServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            int months = Integer.parseInt(req.getParameter("months") != null ? req.getParameter("months") : "3");
+            double avg = txService.getMonthlyAverage(months);
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"average\":" + avg + "}");
+        }
+    }
+
+    public static class BudgetAnalysisServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            double budget = Double.parseDouble(req.getParameter("budget"));
+            String analysis = txService.analyzeBudget(budget);
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"analysis\":\"" + analysis + "\"}");
+        }
+    }
+
+    public static class UndoServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            boolean success = txService.undoLastTransaction();
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"success\":" + success + "}");
+        }
+    }
+
+    public static class FraudDetectionServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            List<String> frauds = txService.detectFraud();
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(frauds));
+        }
+    }
+
+    public static class CategorySuggestionsServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String prefix = req.getParameter("prefix");
+            List<String> suggestions = txService.getCategorySuggestions(prefix);
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(suggestions));
+        }
+    }
+
+    public static class AllTransactionsServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            List<Transaction> list = txService.getAllTransactions();
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(list));
         }
     }
 }

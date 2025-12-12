@@ -67,3 +67,81 @@ document.getElementById('getHist').addEventListener('click', async () => {
   html += '</tbody></table>';
   document.getElementById('history').innerHTML = html;
 });
+
+document.getElementById('getTopExp').addEventListener('click', async () => {
+  const k = document.getElementById('topExpK').value;
+  const res = await fetch('/api/top-expenses?k=' + encodeURIComponent(k));
+  const json = await res.json();
+  let html = '<ul>';
+  json.forEach(item => {
+    html += `<li>${item[1]}: ${item[0]}</li>`;
+  });
+  html += '</ul>';
+  document.getElementById('topExpenses').innerHTML = html;
+});
+
+document.getElementById('getTopCat').addEventListener('click', async () => {
+  const k = document.getElementById('topCatK').value;
+  const res = await fetch('/api/top-categories?k=' + encodeURIComponent(k));
+  const json = await res.json();
+  let html = '<ul>';
+  json.forEach(item => {
+    html += `<li>${item[0]}: ${item[1]}</li>`;
+  });
+  html += '</ul>';
+  document.getElementById('topCategories').innerHTML = html;
+});
+
+document.getElementById('getMonthlyAvg').addEventListener('click', async () => {
+  const months = document.getElementById('monthlyMonths').value;
+  const res = await fetch('/api/monthly-average?months=' + encodeURIComponent(months));
+  const json = await res.json();
+  document.getElementById('monthlyAverage').innerText = 'Monthly Average: ' + json.average;
+});
+
+document.getElementById('analyzeBudget').addEventListener('click', async () => {
+  const budget = document.getElementById('budgetAmount').value;
+  const res = await fetch('/api/budget-analysis?budget=' + encodeURIComponent(budget));
+  const json = await res.json();
+  document.getElementById('budgetAnalysis').innerText = json.analysis;
+});
+
+document.getElementById('undoBtn').addEventListener('click', async () => {
+  const res = await fetch('/api/undo', { method: 'POST' });
+  const json = await res.json();
+  document.getElementById('undoResult').innerText = json.success ? 'Undo successful' : 'No transaction to undo';
+});
+
+document.getElementById('detectFraud').addEventListener('click', async () => {
+  const res = await fetch('/api/fraud');
+  const json = await res.json();
+  let html = '<ul>';
+  json.forEach(item => {
+    html += `<li>${item}</li>`;
+  });
+  html += '</ul>';
+  document.getElementById('fraudResult').innerHTML = html;
+});
+
+document.getElementById('getSuggestions').addEventListener('click', async () => {
+  const prefix = document.getElementById('catPrefix').value;
+  const res = await fetch('/api/suggestions?prefix=' + encodeURIComponent(prefix));
+  const json = await res.json();
+  let html = '<ul>';
+  json.forEach(item => {
+    html += `<li>${item}</li>`;
+  });
+  html += '</ul>';
+  document.getElementById('suggestions').innerHTML = html;
+});
+
+document.getElementById('getAllTrans').addEventListener('click', async () => {
+  const res = await fetch('/api/all-transactions');
+  const json = await res.json();
+  let html = '<table><thead><tr><th>ID</th><th>Type</th><th>Amount</th><th>Description</th><th>Date</th></tr></thead><tbody>';
+  json.forEach(t => {
+    html += `<tr><td>${t.id}</td><td>${t.type}</td><td>${t.amount}</td><td>${t.description||''}</td><td>${t.createdAt}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('allTransactions').innerHTML = html;
+});

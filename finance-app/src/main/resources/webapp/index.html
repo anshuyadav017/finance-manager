@@ -42,14 +42,67 @@
     </section>
 
     <section class="card">
-      <h2>Balance & History</h2>
-      <input id="histAcc" placeholder="Account number"/>
-      <button id="getBal">Get Balance</button>
-      <button id="getHist">Get History</button>
-      <div id="balance" class="result"></div>
-      <div id="history" class="result"></div>
+      <h2>Analytics</h2>
+      <div class="analytics">
+        <div>
+          <h3>Top Expenses</h3>
+          <input id="topExpK" placeholder="Number of top expenses" value="5"/>
+          <button id="getTopExp">Get Top Expenses</button>
+          <div id="topExpenses" class="result"></div>
+        </div>
+        <div>
+          <h3>Top Categories</h3>
+          <input id="topCatK" placeholder="Number of top categories" value="3"/>
+          <button id="getTopCat">Get Top Categories</button>
+          <div id="topCategories" class="result"></div>
+        </div>
+        <div>
+          <h3>Monthly Average</h3>
+          <input id="monthlyMonths" placeholder="Number of months" value="3"/>
+          <button id="getMonthlyAvg">Get Monthly Average</button>
+          <div id="monthlyAverage" class="result"></div>
+        </div>
+      </div>
     </section>
-  </div>
+
+    <section class="card">
+      <h2>Budget & Analysis</h2>
+      <div class="budget">
+        <div>
+          <h3>Budget Analysis</h3>
+          <input id="budgetAmount" placeholder="Monthly budget"/>
+          <button id="analyzeBudget">Analyze Budget</button>
+          <div id="budgetAnalysis" class="result"></div>
+        </div>
+        <div>
+          <h3>Undo Last Transaction</h3>
+          <button id="undoBtn">Undo</button>
+          <div id="undoResult" class="result"></div>
+        </div>
+        <div>
+          <h3>Fraud Detection</h3>
+          <button id="detectFraud">Check for Fraud</button>
+          <div id="fraudResult" class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Utilities</h2>
+      <div class="utilities">
+        <div>
+          <h3>Category Suggestions</h3>
+          <input id="catPrefix" placeholder="Category prefix"/>
+          <button id="getSuggestions">Get Suggestions</button>
+          <div id="suggestions" class="result"></div>
+        </div>
+        <div>
+          <h3>All Transactions</h3>
+          <button id="getAllTrans">Get All Transactions</button>
+          <div id="allTransactions" class="result"></div>
+        </div>
+      </div>
+    </section>
 
   <script src="app.js"></script>
 </body>
