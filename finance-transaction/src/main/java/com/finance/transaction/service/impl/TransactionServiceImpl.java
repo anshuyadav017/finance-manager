@@ -10,7 +10,6 @@ import com.finance.transaction.dao.impl.TransactionDaoImpl;
 import com.finance.transaction.service.TransactionService;
 import org.hibernate.Session;
 import org.hibernate.LockMode;
-import org.hibernate.Transaction as HbTx;
 
 import java.math.BigDecimal;
 import java.util.List;

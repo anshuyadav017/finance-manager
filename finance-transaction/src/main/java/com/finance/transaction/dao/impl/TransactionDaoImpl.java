@@ -4,7 +4,6 @@ import com.finance.core.entity.Transaction;
 import com.finance.persistence.util.HibernateUtil;
 import com.finance.transaction.dao.TransactionDao;
 import org.hibernate.Session;
-import org.hibernate.Transaction as HbTx;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class TransactionDaoImpl implements TransactionDao {
     @Override
     public Transaction save(Transaction tx) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        HbTx hbTx = session.beginTransaction();
+        org.hibernate.Transaction hbTx = session.beginTransaction();
         session.save(tx);
         hbTx.commit();
         session.close();
