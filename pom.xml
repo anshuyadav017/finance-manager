@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.finance</groupId>
+  <artifactId>finance-manager</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>finance-persistence</module>
+    <module>finance-core</module>
+    <module>finance-account</module>
+    <module>finance-transaction</module>
+    <module>finance-history</module>
+    <module>finance-app</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <hibernate.version>5.6.15.Final</hibernate.version>
+    <mysql.connector.version>8.0.33</mysql.connector.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <logback.version>1.2.11</logback.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
