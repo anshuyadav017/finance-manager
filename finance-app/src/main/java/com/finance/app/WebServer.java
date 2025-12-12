@@ -12,6 +12,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.ee10.servlet.DefaultServlet;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -25,23 +27,16 @@ public class WebServer {
     public static void main(String[] args) throws Exception {
         int port = 8080;
         Server server = new Server(port);
-
-        // Context to serve static files from resources/webapp
+        
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
-        // Setup DefaultServlet to serve static content
-        ServletHolder holderPwd = new ServletHolder("default", DefaultServlet.class);
-        holderPwd.setInitParameter("resourceBase", WebServer.class.getResource("/webapp").toExternalForm());
-        holderPwd.setInitParameter("dirAllowed", "true");
-        holderPwd.setInitParameter("pathInfoOnly", "true");
-        context.addServlet(holderPwd, "/");
-
-        // Add API endpoints
-        context.addServlet(CreateAccountServlet.class, "/api/create");
+        
+        // Register API servlets
+        context.addServlet(CreateServlet.class, "/api/create");
         context.addServlet(DepositServlet.class, "/api/deposit");
         context.addServlet(WithdrawServlet.class, "/api/withdraw");
-        context.addServlet(HistoryServlet.class, "/api/history");
         context.addServlet(BalanceServlet.class, "/api/balance");
+        context.addServlet(HistoryServlet.class, "/api/history");
         context.addServlet(TopExpensesServlet.class, "/api/top-expenses");
         context.addServlet(TopCategoriesServlet.class, "/api/top-categories");
         context.addServlet(MonthlyAverageServlet.class, "/api/monthly-average");
@@ -51,18 +46,22 @@ public class WebServer {
         context.addServlet(CategorySuggestionsServlet.class, "/api/suggestions");
         context.addServlet(AllTransactionsServlet.class, "/api/all-transactions");
 
-        server.setHandler(context);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try { HibernateUtil.shutdown(); } catch (Exception ignored) {}
-        }));
-
+        // Serve static files
+        ResourceHandler staticHandler = new ResourceHandler();
+        staticHandler.setDirAllowed(false);
+        
+        HandlerList handlers = new HandlerList();
+        handlers.addHandler(staticHandler);
+        handlers.addHandler(context);
+        
+        server.setHandler(handlers);
+        
+        System.out.println("Server starting on http://localhost:" + port);
         server.start();
-        System.out.println("Server started at http://localhost:" + port);
         server.join();
     }
 
-    public static class CreateAccountServlet extends HttpServlet {
+    public static class CreateServlet extends HttpServlet {
         private final AccountService accountService = new AccountServiceImpl();
 
         @Override
@@ -119,18 +118,6 @@ public class WebServer {
         }
     }
 
-    public static class HistoryServlet extends HttpServlet {
-        private final TransactionService txService = new TransactionServiceImpl();
-
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            String acc = req.getParameter("acc");
-            List<Transaction> list = txService.getHistory(acc);
-            resp.setContentType("application/json");
-            resp.getWriter().write(gson.toJson(list));
-        }
-    }
-
     public static class BalanceServlet extends HttpServlet {
         private final AccountService accountService = new AccountServiceImpl();
 
@@ -145,6 +132,18 @@ public class WebServer {
             }
             resp.setContentType("application/json");
             resp.getWriter().write(gson.toJson(a));
+        }
+    }
+
+    public static class HistoryServlet extends HttpServlet {
+        private final TransactionService txService = new TransactionServiceImpl();
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String acc = req.getParameter("acc");
+            List<Transaction> list = txService.getHistory(acc);
+            resp.setContentType("application/json");
+            resp.getWriter().write(gson.toJson(list));
         }
     }
 

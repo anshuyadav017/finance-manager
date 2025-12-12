@@ -1,3 +1,11 @@
 C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\App.java
 C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\HtmlReportGenerator.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\BalanceServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\CreateAccountServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\CreateServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\CreateTransactionServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\DepositServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\GetHistoryServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\HistoryServlet.java
+C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\servlets\WithdrawServlet.java
 C:\Users\ashuy\OneDrive\Documents\GitHub\finance-manager\finance-app\src\main\java\com\finance\app\WebServer.java

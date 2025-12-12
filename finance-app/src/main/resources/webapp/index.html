@@ -1,109 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>Finance Manager</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Banking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Finance Manager</h1>
+    <div class="particles"></div>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1 class="gradient-text">Premium Banking</h1>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <span>Total Accounts</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="card glass-card slide-in">
+            <div class="card-header">
+                <i class="fas fa-user-plus"></i>
+                <h2>Create New Account</h2>
+            </div>
+            <form id="createForm">
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" name="phone" placeholder="Phone Number">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span>Create Account</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <div id="createResult" class="result"></div>
+        </div>
 
-    <section class="card">
-      <h2>Create Account</h2>
-      <form id="createForm">
-        <input name="holderName" placeholder="Full name" required/>
-        <input name="email" placeholder="Email"/>
-        <input name="phone" placeholder="Phone"/>
-        <button type="submit">Create</button>
-      </form>
-      <div id="createResult" class="result"></div>
-    </section>
+        <div class="grid-2">
+            <div class="card glass-card slide-in-left">
+                <div class="card-header">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Transactions</h3>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-credit-card"></i>
+                    <input type="text" id="accInput" placeholder="Account Number">
+                </div>
+                
+                <div class="transaction-section">
+                    <div class="transaction-type deposit">
+                        <h4><i class="fas fa-plus-circle"></i> Deposit Money</h4>
+                        <div class="input-wrapper">
+                            <i class="fas fa-dollar-sign"></i>
+                            <input type="number" id="depAmount" placeholder="Amount" min="0" step="0.01">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="fas fa-comment"></i>
+                            <input type="text" id="depDesc" placeholder="Description (Optional)">
+                        </div>
+                        <button id="depBtn" class="btn btn-success">
+                            <span>Deposit</span>
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="transaction-type withdraw">
+                        <h4><i class="fas fa-minus-circle"></i> Withdraw Money</h4>
+                        <div class="input-wrapper">
+                            <i class="fas fa-dollar-sign"></i>
+                            <input type="number" id="wdAmount" placeholder="Amount" min="0" step="0.01">
+                        </div>
+                        <div class="input-wrapper">
+                            <i class="fas fa-comment"></i>
+                            <input type="text" id="wdDesc" placeholder="Description (Optional)">
+                        </div>
+                        <button id="wdBtn" class="btn btn-danger">
+                            <span>Withdraw</span>
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="opResult" class="result"></div>
+            </div>
 
-    <section class="card">
-      <h2>Operations</h2>
-      <input id="accInput" placeholder="Account number (e.g. ACC...)" />
-      <div class="ops">
-        <div>
-          <h3>Deposit</h3>
-          <input id="depAmount" placeholder="Amount"/>
-          <input id="depDesc" placeholder="Description"/>
-          <button id="depBtn">Deposit</button>
+            <div class="card glass-card slide-in-right">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Account Overview</h3>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="histAcc" placeholder="Search Account Number">
+                </div>
+                
+                <div class="balance-display">
+                    <div class="balance-card">
+                        <span class="balance-label">Current Balance</span>
+                        <div class="balance-amount">
+                            <span class="currency">₹</span>
+                            <span id="balance" class="amount">0.00</span>
+                        </div>
+                        <button id="getBal" class="btn btn-info">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Refresh Balance</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button id="getHist" class="btn btn-secondary">
+                    <i class="fas fa-history"></i>
+                    <span>View Transaction History</span>
+                </button>
+                <div id="history" class="history-container"></div>
+            </div>
         </div>
-        <div>
-          <h3>Withdraw</h3>
-          <input id="wdAmount" placeholder="Amount"/>
-          <input id="wdDesc" placeholder="Description"/>
-          <button id="wdBtn">Withdraw</button>
-        </div>
-      </div>
-      <div id="opResult" class="result"></div>
-    </section>
+    </div>
 
-    <section class="card">
-      <h2>Analytics</h2>
-      <div class="analytics">
-        <div>
-          <h3>Top Expenses</h3>
-          <input id="topExpK" placeholder="Number of top expenses" value="5"/>
-          <button id="getTopExp">Get Top Expenses</button>
-          <div id="topExpenses" class="result"></div>
-        </div>
-        <div>
-          <h3>Top Categories</h3>
-          <input id="topCatK" placeholder="Number of top categories" value="3"/>
-          <button id="getTopCat">Get Top Categories</button>
-          <div id="topCategories" class="result"></div>
-        </div>
-        <div>
-          <h3>Monthly Average</h3>
-          <input id="monthlyMonths" placeholder="Number of months" value="3"/>
-          <button id="getMonthlyAvg">Get Monthly Average</button>
-          <div id="monthlyAverage" class="result"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Budget & Analysis</h2>
-      <div class="budget">
-        <div>
-          <h3>Budget Analysis</h3>
-          <input id="budgetAmount" placeholder="Monthly budget"/>
-          <button id="analyzeBudget">Analyze Budget</button>
-          <div id="budgetAnalysis" class="result"></div>
-        </div>
-        <div>
-          <h3>Undo Last Transaction</h3>
-          <button id="undoBtn">Undo</button>
-          <div id="undoResult" class="result"></div>
-        </div>
-        <div>
-          <h3>Fraud Detection</h3>
-          <button id="detectFraud">Check for Fraud</button>
-          <div id="fraudResult" class="result"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Utilities</h2>
-      <div class="utilities">
-        <div>
-          <h3>Category Suggestions</h3>
-          <input id="catPrefix" placeholder="Category prefix"/>
-          <button id="getSuggestions">Get Suggestions</button>
-          <div id="suggestions" class="result"></div>
-        </div>
-        <div>
-          <h3>All Transactions</h3>
-          <button id="getAllTrans">Get All Transactions</button>
-          <div id="allTransactions" class="result"></div>
-        </div>
-      </div>
-    </section>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

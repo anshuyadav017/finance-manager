@@ -1,8 +1,0 @@
-com\finance\app\WebServer$DepositServlet.class
-com\finance\app\WebServer$HistoryServlet.class
-com\finance\app\HtmlReportGenerator.class
-com\finance\app\WebServer$BalanceServlet.class
-com\finance\app\App.class
-com\finance\app\WebServer$WithdrawServlet.class
-com\finance\app\WebServer.class
-com\finance\app\WebServer$CreateAccountServlet.class

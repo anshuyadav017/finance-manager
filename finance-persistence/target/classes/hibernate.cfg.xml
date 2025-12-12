@@ -6,7 +6,7 @@
   <session-factory>
     <!-- Update url/username/password for your MySQL -->
     <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-    <property name="hibernate.connection.url">jdbc:h2:mem:finance_manager;DB_CLOSE_DELAY=-1</property>
+    <property name="hibernate.connection.url">jdbc:h2:file:./data/finance_manager;DB_CLOSE_ON_EXIT=FALSE</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password"></property>
 
